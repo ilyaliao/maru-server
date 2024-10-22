@@ -1,7 +1,8 @@
-import { getCaptions } from 'yt-caption-extractor'
+import type { VideoInfo } from 'yt-caption-extractor'
 import type { Lyric } from './types'
+import { getVideoInfo as _getVideoInfo, getCaptions } from 'yt-caption-extractor'
 
-export async function getLyrics(id: string, translations: string[] = []): Promise<any> {
+export async function getLyrics(id: string, translations: string[] = []): Promise<Lyric[]> {
   // if translations is empty, return all lyrics
   const captions = await getCaptions(id, { lang: translations })
 
@@ -27,4 +28,8 @@ export async function getLyrics(id: string, translations: string[] = []): Promis
   }
 
   return mergedLyrics
+}
+
+export async function getVideoInfo(id: string): Promise<VideoInfo | null> {
+  return await _getVideoInfo(id)
 }
